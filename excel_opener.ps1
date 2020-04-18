@@ -11,10 +11,14 @@
 $filepath = $Args[0] # ターゲットExcelファイルパス
 $password_list_path = $Args[1] # パスワード候補csvファイルパス
 
+# 開始時刻の記録
+$start_time = Get-Date -Format "yyyy-mm-dd HH:mm:ss"
+
 # csvからパスワードリストを読み取り
 $password_list = Import-Csv $password_list_path -Encoding UTF8
 $password_list | ConvertFrom-Csv -Header @('password')
 $password_list | Format-Table
+
 
 foreach($p in $password_list){
     try { 
@@ -42,6 +46,10 @@ foreach($p in $password_list){
     }
 }
 
+# 終了時刻の記録
+$end_time = Get-Date -Format "yyyy-mm-dd HH:mm:ss"
 
-
+# 開始・終了時間の出力
+Write-Host "start date:" $start_time
+Write-Host "end date:" $end_time
 
